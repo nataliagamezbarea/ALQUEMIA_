@@ -1,0 +1,72 @@
+{# {% extends "user/base.html" %} #}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+<!-- Se cargan los estilos y scripts necesarios -->
+<!-- <link href="{{ url_for('static', filename='css/authentication/registro.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
+<script src="{{ url_for('static', filename='js/ver_contraseña.js') }}"></script> -->
+
+<!-- Contenedor general del formulario y las imágenes -->
+<section>
+  <!-- Imágenes que se muestran en la vista de registro -->
+  <div>
+    <img src="{{ url_for('static', filename='img/registro/imagen_1.png') }}" alt="Imagen 1" />
+    <img src="{{ url_for('static', filename='img/registro/imagen_2.png') }}" alt="Imagen 2" />
+    <img src="{{ url_for('static', filename='img/registro/imagen_3.png') }}" alt="Imagen 3" />
+    <img src="{{ url_for('static', filename='img/registro/imagen_4.png') }}" alt="Imagen 4" />
+  </div>
+
+  <!-- Formulario de registro de usuario -->
+  <div>
+    <h2>Crea tu cuenta <span>Alquemia</span></h2>
+    <p>¿Qué tipo de cliente eres?</p>
+
+    <form method="POST" action="/registro">
+      <!-- Si hay un error (como correo ya usado o contraseñas no coinciden), se muestra aquí -->
+      {% if error %}
+      <div>{{ error }}</div>
+      {% endif %}
+
+      <!-- Radios para seleccionar tipo de cliente -->
+      <div>
+        <div>
+          <input type="radio" id="particular" name="cliente_tipo" value="False" {% if cliente_tipo == 'False' %}checked{% endif %} required checked />
+          <label for="particular">Particular</label>
+        </div>
+        <div>
+          <input type="radio" id="empresa" name="cliente_tipo" value="True" {% if cliente_tipo == 'True' %}checked{% endif %} required />
+          <label for="empresa">Empresa</label>
+        </div>
+      </div>
+
+      <!-- Campos de texto para los datos del usuario -->
+      <input type="text" name="nombre" placeholder="Nombre" required />
+      <input type="text" name="apellido1" placeholder="Apellido 1" required />
+      <input type="text" name="apellido2" placeholder="Apellido 2" required />
+      <input type="email" name="email" placeholder="Email" required />
+
+      <!-- Campo de contraseña con ícono para mostrar/ocultar -->
+      <div>
+        <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña" required />
+        <span id="OjoContraseña"></span>
+      </div>
+
+      <!-- Campo para confirmar contraseña con ícono -->
+      <div>
+        <input type="password" name="confirmar_contrasena" id="confirmar_contrasena" placeholder="Confirmar Contraseña" required />
+        <span id="OjoContraseñaConfirmacion"></span>
+      </div>
+
+      <!-- Recomendación de seguridad para la contraseña -->
+      <p>
+        La contraseña debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.
+      </p>
+
+      <!-- Botón para enviar el formulario -->
+      <button type="submit">Crear cuenta</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

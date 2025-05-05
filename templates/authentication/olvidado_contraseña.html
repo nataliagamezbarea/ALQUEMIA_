@@ -1,0 +1,44 @@
+{# {% extends "user/base.html" %} #}
+
+{% block head_extra %}
+  <!-- Carga de hojas de estilo necesarias para esta vista -->
+  <!-- <link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/authentication/olvidado_restablecer_contraseña.css') }}" rel="stylesheet" /> -->
+{% endblock %}
+
+{% block title %}Recuperar Contraseña - Alquimia{% endblock %}
+
+{% block content %}
+<!-- Contenedor principal del formulario de recuperación -->
+<div>
+
+  <!-- Título de la página -->
+  <h2>Recuperar Contraseña</h2>
+
+  <!-- Si se generó un mensaje de éxito, se muestra aquí -->
+  {% if tipo_mensaje == 'exito' %}
+    <div>
+      {{ mensaje }}
+    </div>
+  {% endif %}
+
+  <!-- Si se generó un mensaje de error, se muestra aquí -->
+  {% if tipo_mensaje == 'error' %}
+    <div>
+      {{ mensaje }}
+    </div>
+  {% endif %}
+
+  <!-- Formulario donde el usuario escribe su correo -->
+  <form method="POST">
+    <div>
+      <label for="email">Correo Electrónico</label>
+      <input type="email" id="email" name="email" placeholder="Ingresa tu correo" required>
+    </div>
+
+    <!-- Botón para enviar el formulario -->
+    <button type="submit">Recuperar Contraseña</button>
+  </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{# {% extends "user/base.html" %} #}
+{% block title %}Login{% endblock %} 
+
+{% block content %}
+
+<!-- Importa los estilos necesarios para esta página -->
+<!-- <link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/authentication/login.css') }}" rel="stylesheet"/> -->
+
+<!-- Sección principal del login -->
+<section title="login">
+
+  <!-- Formulario para usuarios que ya tienen cuenta -->
+  <form method="POST" action="/login">
+    <h2>Ya tengo una cuenta</h2>
+    <p>Inicia sesión con tu email</p>
+
+    <!-- Si hay un error al iniciar sesión, se muestra aquí -->
+    {% if error %}
+    <div>{{ error }}</div>
+    {% endif %}
+
+    <!-- Campo para escribir el correo -->
+    <input type="email" name="email" placeholder="Email" required />
+
+    <!-- Campo para escribir la contraseña -->
+    <input type="password" name="contrasena" placeholder="Contraseña" required />
+
+    <!-- Enlace para recuperar la contraseña si se olvidó -->
+    <a href="{{ url_for('olvidado_contraseña') }}">¿Has olvidado tu contraseña?</a>
+
+    <!-- Botón para enviar los datos del formulario -->
+    <button type="submit">Iniciar sesión</button>
+  </form>
+
+  <!-- Sección para quienes aún no tienen cuenta -->
+  <div>
+    <h2>Soy cliente nuevo</h2>
+    <p>Regístrate y disfruta de servicios personalizados.</p>
+
+    <!-- Enlace al formulario de registro -->
+    <a href="{{ url_for('registro') }}">Registrarte</a>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{# {% extends "user/base.html" %} #}
+
+{% block head_extra %}
+  <!-- Incluye los estilos si luego decides usarlos, pero actualmente se evita el uso de clases -->
+  <!-- <link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/authentication/olvidado_restablecer_contraseña.css') }}" rel="stylesheet" /> -->
+{% endblock %}
+
+{% block title %}Restablecer Contraseña - Alquimia{% endblock %}
+
+{% block content %}
+<!-- Contenedor general -->
+<div>
+  <h2>Restablecer Contraseña</h2>
+
+  <!-- Muestra mensaje de error si el token es inválido o expiró -->
+  {% if tipo_mensaje == 'error' %}
+    <div>
+      {{ mensaje }}
+    </div>
+  {% endif %}
+
+  <!-- Formulario para establecer la nueva contraseña -->
+  <form method="POST">
+    <!-- Campo para nueva contraseña -->
+    <div>
+      <label for="nueva_contraseña">Nueva Contraseña</label>
+      <input type="password" id="nueva_contraseña" name="nueva_contraseña" required>
+    </div>
+
+    <!-- Campo para confirmar nueva contraseña -->
+    <div>
+      <label for="confirmar_contraseña">Confirmar Contraseña</label>
+      <input type="password" id="confirmar_contraseña" name="confirmar_contraseña" required>
+    </div>
+
+    <!-- Botón para enviar -->
+    <button type="submit">Guardar Contraseña</button>
+  </form>
+</div>
+{% endblock %}
