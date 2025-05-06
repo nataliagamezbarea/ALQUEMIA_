@@ -17,7 +17,7 @@ def init_models(app):
     db.init_app(app)
     with app.app_context():
         # Refleja solo la tabla 'usuarios' desde la base de datos
-        metadata.reflect(bind=db.engine, only=["usuarios"])  # Se puede quitar "only" para reflejar todas las tablas
+        metadata.reflect(bind=db.engine)  # Se puede quitar "only" para reflejar todas las tablas
         # Prepara las clases automapeadas para que se puedan usar como modelos
         Base.prepare()
 
