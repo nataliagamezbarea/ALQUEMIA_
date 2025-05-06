@@ -14,11 +14,9 @@ def olvidado_contraseña():
         # Carga el modelo reflejado
         Usuario = obtener_tabla('usuarios')
 
-        # Crea una sesión de base de datos
-        session_db = Session(db.engine)
 
         # Busca el usuario por email
-        usuario_encontrado = session_db.query(Usuario).filter_by(email=correo).first()
+        usuario_encontrado = db.session.query(Usuario).filter_by(email=correo).first()
 
         if usuario_encontrado:
             # Genera token para el correo
@@ -37,6 +35,6 @@ def olvidado_contraseña():
             mensaje = "No se encontró una cuenta asociada a ese correo."
             tipo_mensaje = "error"
 
-        session_db.close()  # Cierra la sesión
+        db.session.close()  # Cierra la sesión
 
     return render_template('authentication/olvidado_contraseña.html', mensaje=mensaje, tipo_mensaje=tipo_mensaje)

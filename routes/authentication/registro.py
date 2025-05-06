@@ -32,11 +32,10 @@ def registro():
 
         # Accedemos a la tabla 'usuarios'
         Usuario = obtener_tabla('usuarios')
-        session_db = Session(db.engine)
 
         # Verificamos si ya existe un usuario con ese correo
-        if session_db.query(Usuario).filter_by(email=email).first():
-            session_db.close()
+        if db.session.query(Usuario).filter_by(email=email).first():
+            db.session.close()
             return render_template(
                 "authentication/registro.html",
                 error="Correo electrónico ya registrado.",
@@ -60,9 +59,9 @@ def registro():
         )
 
         # Guardamos el usuario en la base de datos
-        session_db.add(nuevo_usuario)
-        session_db.commit()
-        session_db.close()
+        db.session.add(nuevo_usuario)
+        db.session.commit()
+        db.session.close()
 
         # Redirigimos al login tras el registro exitoso
         return redirect(url_for("login"))

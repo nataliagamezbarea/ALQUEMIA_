@@ -16,20 +16,19 @@ def login():
         email = request.form.get("email")
         contrasena = request.form.get("contrasena")
 
-        session_db = Session(db.engine)
 
-        usuario = session_db.query(Usuario).filter_by(email=email).first()
+        usuario = db.session.query(Usuario).filter_by(email=email).first()
 
         if usuario and bcrypt.checkpw(contrasena.encode("utf-8"), usuario.contrasena.encode("utf-8")):
             session["user"] = usuario.id_usuario
             session["is_admin"] = getattr(usuario, "is_admin", False)
-            session_db.close()
+            db.session.close()
 
             if session["is_admin"]:
                 return redirect(url_for("admin_home"))
             return redirect(url_for("user_home"))
         else:
-            session_db.close()
+            db.session.close()
             return render_template("authentication/login.html", error="Email o contraseña incorrectos")
 
     return render_template("authentication/login.html")
