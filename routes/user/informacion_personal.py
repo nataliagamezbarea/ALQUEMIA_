@@ -20,7 +20,7 @@ def informacion_personal():
     # Si no se encuentra el usuario, redirigimos al login o mostramos error
     if not usuario:
         # Si el usuario no se encuentra en la base de datos, redirigimos al login
-        return redirect(url_for("login"))  # O podrías mostrar un error específico
+        return redirect(url_for("login"))  
 
     # Si todo es correcto, renderizamos la plantilla y pasamos los datos del usuario
     return render_template('user/user_config/informacion_personal.html', usuario=usuario)

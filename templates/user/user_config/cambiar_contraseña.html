@@ -1,0 +1,44 @@
+{% extends "user/user_config/base.html" %}
+
+{% block title %}Cambiar Contraseña{% endblock %}
+{% block head_extra %}
+  <link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+    <div>
+        <h1>Cambiar Contraseña</h1>
+
+        <!-- Mostrar mensaje de error o éxito -->
+        {% if tipo_mensaje == 'exito' %}
+        <div>
+          {{ mensaje }}
+        </div>
+      {% endif %}
+    
+      <!-- Mensaje de error -->
+      {% if tipo_mensaje == 'error' %}
+        <div>
+          {{ mensaje }}
+        </div>
+      {% endif %}
+
+        <form method="POST" action="/cambiar_contraseña">
+            <div>
+                <label for="actual">Contraseña Actual</label>
+                <input type="password" id="actual" name="actual" required>
+            </div>
+
+            <div>
+                <label for="nueva">Nueva Contraseña</label>
+                <input type="password" id="nueva" name="nueva" required>
+            </div>
+
+            <div>
+                <label for="confirmar">Confirmar Nueva Contraseña</label>
+                <input type="password" id="confirmar" name="confirmar" required>
+            </div>
+
+            <button type="submit">Actualizar Contraseña</button>
+        </form>
+    </div>
+{% endblock %}

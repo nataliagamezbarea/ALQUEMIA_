@@ -63,6 +63,12 @@ def inyectar_cesta():
 
 app.add_url_rule('/busqueda','busqueda', busqueda, methods=["GET", "POST"])
 
+# USER
+app.add_url_rule('/compras', 'compras', compras, methods=["GET", "POST"])
+app.add_url_rule('/informacion_personal', 'informacion_personal', informacion_personal)
+app.add_url_rule('/update_usuario', 'update_usuario', update_usuario, methods=['POST']) 
+app.add_url_rule('/cambiar_contraseña', 'cambiar_contraseña', update_contraseña, methods=["GET", "POST"])
+
 
 # Lanza la app en modo desarrollo
 if __name__ == "__main__":
