@@ -1,11 +1,7 @@
-{# {% extends "user/base.html" %} #}
+{% extends "base.html" %}
 {% block title %}Login{% endblock %} 
 
 {% block content %}
-
-<!-- Importa los estilos necesarios para esta página -->
-<!-- <link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
-<link href="{{ url_for('static', filename='css/authentication/login.css') }}" rel="stylesheet"/> -->
 
 <!-- Sección principal del login -->
 <section title="login">
@@ -42,5 +38,11 @@
     <a href="{{ url_for('registro') }}">Registrarte</a>
   </div>
 </section>
+
+<!-- Comenté los enlaces de los estilos porque no los estamos usando en este momento -->
+<!--
+<link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/authentication/login.css') }}" rel="stylesheet"/>
+-->
 
 {% endblock %}

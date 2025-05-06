@@ -1,1 +1,18 @@
-holi
+{% extends "base.html" %}
+
+{% block head_extra %}
+  <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}Alquemia{% endblock %}
+
+{% block content %}
+<div id="mujer_hombre">
+  <div id="mujer">
+    <a href="#">MUJER</a>
+  </div>
+  <div id="hombre">
+    <a href="#">HOMBRE</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+<!-- Este enlace es para el archivo de estilos del footer, pero como no voy a usar estilos ahora, lo dejo comentado -->
+<!-- <link href="{{ url_for('static', filename='css/footer.css') }}" rel="stylesheet" /> -->
+
+<!-- Aquí empieza el footer, que es básicamente la parte de abajo de la página -->
+<footer>
+
+  <!-- En esta sección yo puse el formulario para que las personas se suscriban a la newsletter -->
+  <div>
+    <h4>Suscríbete a la newsletter</h4>
+    <p>Descuentos, tendencias y más.</p>
+
+    <!-- Este es el formulario donde la persona puede poner su email -->
+    <form action="">
+      
+      <!-- Aquí está el input del correo y el botoncito con el ícono de la flechita -->
+      <div id="newsletter"> <!-- Dejé el ID por si se usa en JS después -->
+        <div>
+          <input type="email" placeholder="Escribe tu email" required />
+        </div>
+        <div>
+          <button>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Esto es como para que confirmen que aceptan que tratemos sus datos personales -->
+      <div>
+        <input type="checkbox" required />
+        <p>Acepto el tratamiento datos.</p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Aquí puse una sección para las colecciones, como ropa de mujer y de hombre -->
+  <div>
+    <h4>Colecciones</h4>
+    <ul>
+      <li><a href="#">Ropa de mujer</a></li>
+      <li><a href="#">Ropa de hombre</a></li>
+    </ul>
+  </div>
+
+  <!-- Esta parte es sobre la empresa, con enlaces que llevan a otras secciones como "Nosotros" y "Contacto" -->
+  <div>
+    <h4>Empresa</h4>
+    <ul>
+      <li><a href="{{ url_for('nosotros') }}">Nosotros</a></li>
+      <li><a href="{{ url_for('encuentranos') }}">Encuéntranos</a></li>
+      <li><a href="{{ url_for('contactanos') }}">Contacto</a></li>
+    </ul>
+  </div>
+
+  <!-- Y esta última parte es donde puse los íconos de redes sociales -->
+  <div id="redes_sociales">
+    <a href="#" id="instagram" target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="#" id="facebook" target="_blank">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="#" id="twitter" target="_blank">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="mailto:correo@correo.com" id="email" target="_blank">
+      <i class="fas fa-envelope"></i>
+    </a>
+  </div>
+
+</footer>

@@ -1,0 +1,148 @@
+<!-- 
+Bloque de recursos externos (hojas de estilo y scripts).
+Actualmente desactivado. Puede activarse si se requiere funcionalidad dinámica o estilos personalizados.
+-->
+<!--
+<link href="{{ url_for('static', filename='css/nav.css') }}" rel="stylesheet"/>
+<script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+
+-->
+
+<!-- 
+Navegación principal: contiene el botón del menú, el logotipo y los iconos de acciones (búsqueda, carrito, usuario).
+-->
+<nav>
+  
+  <!-- Sección izquierda: botón para desplegar el menú de sugerencias -->
+  <div>
+    <button popovertarget="menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- Menú desplegable con sugerencias de categorías para mujer y hombre -->
+    <div id="menu" popover>
+
+      <!-- Encabezado con botones para alternar entre géneros -->
+      <div>
+        <div id="sugerencias_genero">
+          <h1>Sugerencias para ti</h1>
+          <div>
+            <button onclick="mostrarGenero('menu_mujer')">MUJER</button>
+            <button onclick="mostrarGenero('menu_hombre')">HOMBRE</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de sugerencias para mujer -->
+      <div id="menu_mujer">
+        <!-- Categorías destacadas para mujer -->
+        <div>
+          {% for categoria in menu.categorias_mujer_random %}
+            <a href="{{ url_for('catalogo') }}?seccion=mujer&categoria={{ categoria.nombre }}">
+              <button>{{ categoria.nombre }}</button>
+            </a>
+          {% endfor %}
+        </div>
+
+        <!-- Listado completo de categorías para mujer -->
+        <div>
+          <div>
+            {% for categoria in menu.categorias_mujer[:(menu.categorias_mujer|length // 2)] %}
+              <a href="{{ url_for('catalogo') }}?seccion=mujer&categoria={{ categoria.nombre }}">
+                {{ categoria.nombre }}
+              </a>
+            {% endfor %}
+          </div>
+          <div>
+            {% for categoria in menu.categorias_mujer[(menu.categorias_mujer|length // 2):] %}
+              <a href="{{ url_for('catalogo') }}?seccion=mujer&categoria={{ categoria.nombre }}">
+                {{ categoria.nombre }}
+              </a>
+            {% endfor %}
+          </div>
+
+          <!-- Imágenes asociadas a las categorías de mujer -->
+          <div>
+            {% for imagen_url in menu.imagenes_mujer_random %}
+              <img src="{{ imagen_url }}" alt="Imagen de mujer">
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de sugerencias para hombre -->
+      <div id="menu_hombre" class="hidden">
+        <!-- Categorías destacadas para hombre -->
+        <div>
+          {% for categoria in menu.categorias_hombre_random %}
+            <a href="{{ url_for('catalogo') }}?seccion=hombre&categoria={{ categoria.nombre }}">
+              <button>{{ categoria.nombre }}</button>
+            </a>
+          {% endfor %}
+        </div>
+
+        <!-- Listado completo de categorías para hombre -->
+        <div>
+          <div>
+            {% for categoria in menu.categorias_hombre[:(menu.categorias_hombre|length // 2)] %}
+              <a href="{{ url_for('catalogo') }}?seccion=hombre&categoria={{ categoria.nombre }}">
+                {{ categoria.nombre }}
+              </a>
+            {% endfor %}
+          </div>
+          <div>
+            {% for categoria in menu.categorias_hombre[(menu.categorias_hombre|length // 2):] %}
+              <a href="{{ url_for('catalogo') }}?seccion=hombre&categoria={{ categoria.nombre }}">
+                {{ categoria.nombre }}
+              </a>
+            {% endfor %}
+          </div>
+
+          <!-- Imágenes asociadas a las categorías de hombre -->
+          <div>
+            {% for imagen_url in menu.imagenes_hombre_random %}
+              <img src="{{ imagen_url }}" alt="Imagen de hombre">
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Sección central: logotipo del sitio web -->
+  <div>
+    <a href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='img/logo/alquemia.png') }}" alt="Logo">
+    </a>
+  </div>
+
+  <!-- Sección derecha: búsqueda, carrito de compras y acceso a usuario -->
+  <div>
+    <a href="{{ url_for('busqueda') }}">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
+
+    <!-- Botón para abrir la cesta de compras -->
+    <button popovertarget="cesta">
+      {% if session.get("user") %}
+      <span>{{ cesta["numero_productos"] if cesta["numero_productos"] > 0 else 0 }}</span>
+      {% endif %}
+      <i class="fa-solid fa-bag-shopping"></i>
+    </button>
+
+    <!-- Componente incluido: contenido del carrito -->
+    {% include "components/cesta.html" %}
+
+    <!-- Enlace a la página de inicio de sesión -->
+    <a href="{{ url_for('login') }}">
+      <i class="fa-regular fa-user"></i>
+    </a>
+  </div>
+
+</nav>
+
+
+
+<!-- Bloque de contenido dinámico definido por las plantillas que hereden este archivo -->
+{% block content %}{% endblock %}

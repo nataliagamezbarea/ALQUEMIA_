@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Catálogo de Productos{% endblock %}
+
+{% block content %}
+<link href="{{ url_for('static', filename='css/user/catalogo.css') }}" rel="stylesheet" />
+
+
+<!-- Formulario de Búsqueda -->
+<section >
+    <form action="{{ url_for('busqueda') }}" >
+    <i class="fas fa-search"></i>
+      <input type="text" name="busqueda" placeholder="Busca productos..." value="{{ busqueda }}" />
+    </form>
+  </section>
+  
+
+<section>
+  {% if productos %}
+    <div>
+      {% include 'user/productos.html' %}
+    </div>
+
+    <!-- Paginación -->
+    <div >
+      {% if pagina_actual > 1 %}
+        <a href="{{ url_for('busqueda', pagina=pagina_actual-1, busqueda=busqueda) }}" >Anterior</a>
+      {% endif %}
+      <span>Página {{ pagina_actual }} de {{ total_paginas }}</span>
+      {% if pagina_actual < total_paginas %}
+        <a href="{{ url_for('busqueda', pagina=pagina_actual+1, busqueda=busqueda) }}" >Siguiente</a>
+      {% endif %}
+    </div>
+  {% else %}
+    <div>
+      No se encontraron productos que coincidan con "{{ busqueda }}". 
+    </div>
+  {% endif %}
+</section>
+
+
+<script src="{{ url_for('static', filename='js/cambiar_imagen_color.js') }}"></script>
+{% endblock %}

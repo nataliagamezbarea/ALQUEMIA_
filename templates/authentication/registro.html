@@ -1,12 +1,14 @@
-{# {% extends "user/base.html" %} #}
+{% extends "base.html" %}
 
 {% block title %}Registro{% endblock %}
 
 {% block content %}
 <!-- Se cargan los estilos y scripts necesarios -->
-<!-- <link href="{{ url_for('static', filename='css/authentication/registro.css') }}" rel="stylesheet" />
+<!-- 
+<link href="{{ url_for('static', filename='css/authentication/registro.css') }}" rel="stylesheet" />
 <link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
-<script src="{{ url_for('static', filename='js/ver_contraseña.js') }}"></script> -->
+<script src="{{ url_for('static', filename='js/ver_contraseña.js') }}"></script> 
+-->
 
 <!-- Contenedor general del formulario y las imágenes -->
 <section>
@@ -20,7 +22,7 @@
 
   <!-- Formulario de registro de usuario -->
   <div>
-    <h2>Crea tu cuenta <span>Alquemia</span></h2>
+    <h2>Crea tu cuenta <span>Alquimia</span></h2>
     <p>¿Qué tipo de cliente eres?</p>
 
     <form method="POST" action="/registro">

@@ -1,0 +1,93 @@
+<!-- Este es el contenedor principal del popover de la cesta de compras, o sea, la bolsita de productos -->
+<div id="cesta" class="carrito {% if session.get('user') and cesta['numero_productos'] > 0 %}cesta-no-vacia{% endif %}" popover>
+  
+  <!-- En esta parte está el encabezado con el título de la cesta -->
+  <header>
+    <h1>
+      {% if session.get("user") %}
+        <!-- Si la persona está logueada, muestro cuántos productos hay -->
+        Bolsa ({{ cesta['numero_productos'] if cesta['numero_productos'] > 0 else 0 }})
+        {% else %}
+        <!-- Si no ha iniciado sesión, solo muestro el texto "Bolsa" -->
+        Bolsa
+      {% endif %}
+    </h1>
+    <!-- Este botoncito es para cerrar la cesta -->
+    <button id="cerrar-cesta" aria-label="Cerrar cesta"><i class="fas fa-times"></i></button>
+  </header>
+
+  <section>
+    {% if not session.get("user") %}
+      <!-- Si la persona no ha iniciado sesión, le aviso que debe hacerlo -->
+      <div style="padding: 10px; color: red;">
+        Debes iniciar sesión para ver y gestionar tu cesta.
+      </div>
+    {% else %}
+      {% if cesta["numero_productos"] == 0 %}
+        <!-- Aquí le digo que la cesta está vacía si no ha agregado nada -->
+        <div style="padding: 10px; color: gray;">
+          Tu cesta está vacía.
+        </div>
+      {% else %}
+        <!-- Ok, ahora sí hay productos 😎 -->
+        {% for producto_cesta in cesta['productos_cesta'] %}
+          {% if producto_cesta.variante and producto_cesta.variante.producto %}
+            {% set producto = producto_cesta.variante.producto %}
+            {% set color = producto_cesta.variante.color %}
+            {% set talla = producto_cesta.variante.talla %}
+
+            <!-- Cada producto de la cesta lo muestro dentro de este "article" -->
+            <article>
+              <!-- Aquí está la imagen del producto, o una por defecto si no tiene -->
+              <img src="{{ producto_cesta.imagen_url if producto_cesta.imagen_url else url_for('static', filename='img/default_product.png') }}" alt="Imagen del producto">
+              <div>
+                <h3>{{ producto.nombre }}</h3>
+                <!-- Aquí muestro el color y la talla que eligió -->
+                <p>{{ color.color if color else 'Sin color' }} | {{ talla.talla if talla else 'Sin talla' }}</p>
+                
+                <div class="producto-acciones">
+                  <!-- Este formulario es para eliminar el producto -->
+                  <form method="post" action="{{ url_for('eliminar_producto_cesta', id_variantes=producto_cesta.variante.id_variantes) }}">
+                    <button type="submit" aria-label="Eliminar producto"><i class="fas fa-trash-alt"></i></button>
+                  </form>
+
+                  <!-- Este otro es para cambiar la cantidad -->
+                  <form method="post" action="{{ url_for('actualizar_cantidad_producto', id_variantes=producto_cesta.variante.id_variantes) }}">
+                    <div class="cantidad">
+                      <input type="number" name="cantidad" min="1" value="{{ producto_cesta.cantidad }}" aria-label="Cantidad de producto" onchange="this.form.submit()">
+                    </div>
+                  </form>
+
+                  <!-- Este es el precio total por ese producto según la cantidad -->
+                  <p class="precio-total">{{ producto.precio * producto_cesta.cantidad }} €</p>
+                </div>
+              </div>
+            </article>
+          {% else %}
+            <!-- Esto aparece si por alguna razón el producto ya no está disponible -->
+            <div>Producto no disponible.</div>
+          {% endif %}
+        {% endfor %}
+
+        <!-- Si el total pasa los 70€, digo que tiene envío gratis 🎉 -->
+        <div class="envio-gratis flex align-center" {% if cesta['total'] > 70 %} style="display: block;" {% else %} style="display: none;" {% endif %}>
+          <i class="fa-solid fa-truck"></i>
+          <p>Tu pedido tiene <span>envío gratis</span>.</p>
+        </div>
+
+        <div>
+          <!-- Aquí muestro el total general de la cesta -->
+          <div class="carrito-total flex space_between">
+            <span>Total</span>
+            <span>{{ cesta['total'] if cesta['total'] else '0,00 €' }} €</span>
+          </div>
+
+          <!-- Y si hay productos, dejo el botón para hacer el pedido -->
+          {% if cesta['cesta["numero_productos"]'] > 0 %}
+            <button class="button-green" aria-label="Ver bolsa">Realizar pedido</button>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endif %}
+  </section>
+</div>

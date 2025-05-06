@@ -1,13 +1,15 @@
 import os
 from flask import Flask
+from routes.busqueda import busqueda
 from backend.base_de_datos import db, init_models
 
 # Importamos las funciones para las vistas
 from routes.authentication  import login , olvidado_contraseña ,  registro , restablecer_contraseña
-from routes import home
+from routes import home, obtener_cesta
 from routes.contacto import contacto, contacto_empresa, contacto_particular
 from routes.inicio import admin_home , user_home
 from routes.tienda import encuentranos , nosotros
+from routes.obtener_menu import obtener_menu
 
 app = Flask(__name__)
 
@@ -54,6 +56,16 @@ app.add_url_rule('/contactanos', 'contactanos', contacto, methods=["GET"])
 app.add_url_rule('/contactanos/particular', 'contactanos_particular', contacto_particular, methods=["GET", "POST"])
 app.add_url_rule('/contactanos/empresa', 'contactanos_empresa', contacto_empresa, methods=["GET", "POST"])
 
+@app.context_processor
+def inyectar_menu():
+    return dict(menu=obtener_menu())  
+
+@app.context_processor
+def inyectar_cesta():
+    return dict(cesta=obtener_cesta())
+
+
+app.add_url_rule('/busqueda','busqueda', busqueda, methods=["GET", "POST"])
 
 
 # Lanza la app en modo desarrollo
