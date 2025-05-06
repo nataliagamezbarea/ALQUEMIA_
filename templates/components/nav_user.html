@@ -1,0 +1,21 @@
+<link href="{{ url_for('static', filename='css/user/nav_user.css') }}" rel="stylesheet" />
+
+<!-- Barra lateral de navegación de usuario -->
+<div id="nav">
+    <a href="{{ url_for('informacion_personal') }}" class="{% if request.endpoint == 'informacion_personal' %}active{% endif %}">
+        <i class="fa fa-user"></i> Información personal
+    </a>
+
+
+    <a href="{{ url_for('compras') }}" class="{% if request.endpoint == 'compras' %}active{% endif %}">
+        <i class="fa fa-shopping-bag"></i> Historial de compras
+    </a>
+
+    <a href="{{ url_for('cambiar_contraseña') }}" class="{% if request.endpoint == 'cambiar_contraseña' %}active{% endif %}">
+        <i class="fa fa-lock"></i> Contraseña y Seguridad
+    </a>
+
+    <a href="{{ url_for('cerrar_sesion') }}">
+        <i class="fa fa-sign-out-alt"></i> Cerrar sesión
+    </a>
+</div>

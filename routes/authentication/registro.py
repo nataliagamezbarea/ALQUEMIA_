@@ -1,7 +1,6 @@
-from flask import render_template, request, redirect, url_for
-from sqlalchemy.orm import Session
+from flask import render_template, request, redirect, url_for  # Importamos funciones necesarias de Flask
 from backend.base_de_datos import obtener_tabla, db  # Importamos funciones y la base de datos
-import bcrypt
+import bcrypt  # Importamos bcrypt para la encriptación de contraseñas
 
 def registro():
     if request.method == "POST":
@@ -32,11 +31,10 @@ def registro():
 
         # Accedemos a la tabla 'usuarios'
         Usuario = obtener_tabla('usuarios')
-        session_db = Session(db.engine)
-
+        
         # Verificamos si ya existe un usuario con ese correo
-        if session_db.query(Usuario).filter_by(email=email).first():
-            session_db.close()
+        if db.session.query(Usuario).filter_by(email=email).first():  # Corregido: Usamos `db.session.query` en vez de `db.session()`
+            db.session.remove()  # Usamos `remove()` para cerrar la sesión de forma correcta
             return render_template(
                 "authentication/registro.html",
                 error="Correo electrónico ya registrado.",
@@ -60,9 +58,9 @@ def registro():
         )
 
         # Guardamos el usuario en la base de datos
-        session_db.add(nuevo_usuario)
-        session_db.commit()
-        session_db.close()
+        db.session.add(nuevo_usuario)  # Corregido: Usamos `db.session.add` en lugar de `db.add`
+        db.session.commit()  # Corregido: Usamos `db.session.commit` para confirmar los cambios
+        db.session.remove()  # Cerramos la sesión correctamente
 
         # Redirigimos al login tras el registro exitoso
         return redirect(url_for("login"))

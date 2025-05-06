@@ -9,4 +9,4 @@ def home():
         return redirect(url_for("user_home"))
 
     # Si no hay sesión, muestra la página pública
-    return redirect(url_for("user_home"))
+    return render_template("home.html")

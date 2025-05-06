@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Alquemia{% endblock %}</title>
+
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='img/logo/alquemia.png') }}"
+    />
+
+
+  
+    <link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/general.css') }}" rel="stylesheet" />
+
+</head>
+<body>
+
+    {% include "components/navbar.html" %}
+   <div>
+        {% include "components/nav_user.html" %}
+        {% block content %}
+        {% endblock %}
+
+   </div>
+
+       
+    {% include "components/footer.html" %}
+
+    {% block extra_js %}{% endblock %} 
+</body>
+</html>

@@ -1,15 +1,10 @@
 import os
 from flask import Flask
-from routes.busqueda import busqueda
+from routes import *
 from backend.base_de_datos import db, init_models
 
 # Importamos las funciones para las vistas
-from routes.authentication  import login , olvidado_contraseña ,  registro , restablecer_contraseña
-from routes import home, obtener_cesta
-from routes.contacto import contacto, contacto_empresa, contacto_particular
-from routes.inicio import admin_home , user_home
-from routes.tienda import encuentranos , nosotros
-from routes.obtener_menu import obtener_menu
+from routes import home, obtener_cesta , contacto , contacto_empresa , contacto_particular , admin_home , user_home , encuentranos , nosotros , obtener_menu
 
 app = Flask(__name__)
 
@@ -39,6 +34,7 @@ app.add_url_rule("/login", "login", login, methods=["GET", "POST"])
 app.add_url_rule("/registro", "registro", registro, methods=["GET", "POST"])
 app.add_url_rule("/olvidado_contraseña", "olvidado_contraseña", olvidado_contraseña, methods=["GET", "POST"])
 app.add_url_rule("/restablecer_contraseña/<token>", "restablecer_contraseña", restablecer_contraseña, methods=["GET", "POST"])
+app.add_url_rule('/cerrar_sesion', 'cerrar_sesion', cerrar_sesion, methods=["GET", "POST"])
 
 
 # Panel de administrador
@@ -66,6 +62,14 @@ def inyectar_cesta():
 
 
 app.add_url_rule('/busqueda','busqueda', busqueda, methods=["GET", "POST"])
+
+
+# USER
+app.add_url_rule('/compras', 'compras', compras, methods=["GET", "POST"])
+app.add_url_rule('/informacion_personal', 'informacion_personal', informacion_personal)
+app.add_url_rule('/update_usuario', 'update_usuario', update_usuario, methods=['POST']) 
+app.add_url_rule('/cambiar_contraseña', 'cambiar_contraseña', update_contraseña, methods=["GET", "POST"])
+
 
 
 # Lanza la app en modo desarrollo

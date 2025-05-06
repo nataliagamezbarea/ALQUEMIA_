@@ -1,0 +1,37 @@
+{% extends "user/user_config/base.html" %}
+{% block title %}User{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/user/informacion_personal.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
+
+<script src="{{ url_for('static', filename='js/ver_contraseña.js') }}"></script>
+
+<div>
+    <form title="update_usuario" action="{{ url_for('update_usuario') }}" method="POST">
+        <h3>Actualizar Mis Datos</h3>
+        
+        <div>
+            <label for="primer-nombre">Primer Nombre <span>*</span></label>
+            <input type="text" id="primer-nombre" name="nombre" value="{{ usuario.nombre }}" required>
+        </div>
+    
+        <div>
+            <label for="primer-apellido">Primer Apellido <span>*</span></label>
+            <input type="text" id="primer-apellido" name="apellido1" value="{{ usuario.apellido1 }}" required>
+        </div>
+    
+        <div>
+            <label for="segundo-apellido">Segundo Apellido</label>
+            <input type="text" id="segundo-apellido" name="apellido2" value="{{ usuario.apellido2 }}">
+        </div>
+    
+        <div>
+            <label for="correo-electronico">Correo Electrónico <span>*</span></label>
+            <input type="email" id="correo-electronico" name="email" value="{{ usuario.email }}" required>
+        </div>
+    
+        <button type="submit">Actualizar Datos</button>
+    </form>
+</div>
+
+{% endblock %}

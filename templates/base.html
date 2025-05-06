@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- En esta parte defino la codificación de caracteres y hago que el diseño sea adaptable a cualquier dispositivo -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Este es el título general del sitio, aunque puede cambiar desde otras plantillas si se usa 'block title' -->
     <title>{% block title %}Alquemia{% endblock %}</title>
 
-
+    <!-- Aquí incluyo los estilos de los íconos de Font Awesome, que se usan en varios botones y elementos visuales -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
+
+    <!-- Este es el ícono que se muestra en la pestaña del navegador, también conocido como favicon -->
     <link
       rel="shortcut icon"
       href="{{ url_for('static', filename='img/logo/alquemia.png') }}"
     />
 
-
-  
+    <!-- Este es el archivo de estilos para formularios. Lo mantengo separado para tener mejor organización -->
     <link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
-  <link href="{{ url_for('static', filename='css/general.css') }}" rel="stylesheet" />
 
+    <!-- Este es el archivo de estilos generales que aplica para todo el sitio -->
+    <link href="{{ url_for('static', filename='css/general.css') }}" rel="stylesheet" />
 </head>
 <body>
 
+    <!-- Aquí incluyo la barra de navegación principal, que se encuentra en un componente reutilizable -->
     {% include "components/navbar.html" %}
-   <div style="padding: 4vh;">
-    {# {% include "components/nav_user.html" %} #}
-    {% block content %}
+
+    <div>
+        {# Si algún día necesito mostrar una navegación secundaria para usuarios logueados, la puedo activar aquí #}
+        {# {% include "components/nav_user.html" %} #}
+
+        <!-- Este es el bloque de contenido principal. Cada página lo puede personalizar con lo que necesite mostrar -->
+        {% block content %}
         {% endblock %}
+    </div>
 
-   </div>
-
-       
+    <!-- Al final de la página incluyo el pie de página, que también está en un componente separado -->
     {% include "components/footer.html" %}
 
+    <!-- Este bloque me permite insertar JavaScript específico desde otras plantillas, sin afectar esta base -->
     {% block extra_js %}{% endblock %} 
 </body>
 </html>
