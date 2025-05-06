@@ -1,0 +1,72 @@
+{% block head_extra %}
+  <!-- Aquí iría el enlace al archivo CSS específico para esta página, pero está comentado por si no es necesario cargarlo -->
+  <!-- <link href="{{ url_for('static', filename='css/user/encuentranos.css') }}" rel="stylesheet" /> -->
+{% endblock %}
+
+{% block content %}
+<section>
+    <div>
+        <!-- Título principal del buscador de tiendas -->
+        <h2>Buscador de tiendas</h2>
+        <p>Encuentra tu tienda Alquimia más cercana</p>
+
+        <!-- Menú desplegable para elegir el país -->
+        <select id="select-pais">
+            <option value="">Seleccionar País</option>
+            {% for pais in paises %}
+                <!-- Se marca como "selected" si coincide con el país previamente elegido -->
+                <option value="{{ pais[0] }}" {% if pais[0] == selected_pais %}selected{% endif %}>{{ pais[0] }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Menú desplegable para elegir la provincia -->
+        <select id="select-provincia">
+            <option value="">Seleccionar Provincia</option>
+            {% for provincia in provincias %}
+                <!-- También se mantiene la selección anterior si aplica -->
+                <option value="{{ provincia[0] }}" {% if provincia[0] == selected_provincia %}selected{% endif %}>{{ provincia[0] }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Menú desplegable para elegir la ciudad -->
+        <select id="select-ciudad">
+            <option value="">Seleccionar Ciudad</option>
+            {% for ciudad in ciudades %}
+                <!-- Igual que los anteriores, conserva la opción elegida -->
+                <option value="{{ ciudad[0] }}" {% if ciudad[0] == selected_ciudad %}selected{% endif %}>{{ ciudad[0] }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Aquí se muestran las tiendas disponibles en un formato tipo "tarjeta" -->
+        <div id="tiendas-grid">
+            {% for tienda in tiendas %}
+                <div
+                     data-pais="{{ tienda.pais }}"
+                     data-provincia="{{ tienda.provincia }}"
+                     data-ciudad="{{ tienda.ciudad }}"
+                     data-url="{{ tienda.maps_url }}"
+                     onclick="mostrar_mapa(this)">
+                    <!-- Información breve de la tienda -->
+                    <h3>{{ tienda.ciudad }}</h3>
+                    <p>Provincia: {{ tienda.provincia }}</p>
+                    <p>CP: {{ tienda.codigo_postal }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div>
+        <!-- Este es un mensaje para guiar al usuario antes de cargar el mapa -->
+        <p id="mapa-message">
+            Localiza tu tienda más cercana
+        </p>
+        
+        <!-- Aquí se carga el mapa de Google Maps cuando se selecciona una tienda -->
+        <iframe id="mapa-frame" src="" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
+
+<!-- Estos scripts están comentados por ahora, pero se pueden usar para manejar el mapa y los filtros con JavaScript -->
+<!-- <script src="{{ url_for('static', filename='js/mostrar_mapa.js') }}"></script>
+<script src="{{ url_for('static', filename='js/filtrar.js') }}"></script> -->
+{% endblock %}

@@ -5,7 +5,9 @@ from backend.base_de_datos import db, init_models
 # Importamos las funciones para las vistas
 from routes.authentication  import login , olvidado_contraseña ,  registro , restablecer_contraseña
 from routes import home
+from routes.contacto import contacto, contacto_empresa, contacto_particular
 from routes.inicio import admin_home , user_home
+from routes.tienda import encuentranos , nosotros
 
 app = Flask(__name__)
 
@@ -40,6 +42,19 @@ app.add_url_rule("/restablecer_contraseña/<token>", "restablecer_contraseña", 
 # Panel de administrador
 app.add_url_rule("/admin", "admin_home", admin_home)
 app.add_url_rule("/user", "user_home", user_home)
+
+
+# tienda
+
+app.add_url_rule("/encuentranos", "encuentranos", encuentranos)
+
+app.add_url_rule("/nosotros" , "nosotros" , nosotros)
+
+app.add_url_rule('/contactanos', 'contactanos', contacto, methods=["GET"])
+app.add_url_rule('/contactanos/particular', 'contactanos_particular', contacto_particular, methods=["GET", "POST"])
+app.add_url_rule('/contactanos/empresa', 'contactanos_empresa', contacto_empresa, methods=["GET", "POST"])
+
+
 
 # Lanza la app en modo desarrollo
 if __name__ == "__main__":

@@ -1,0 +1,85 @@
+{# {% extends "user/base.html" %} #} 
+<!-- Esta línea extendería la plantilla base del usuario, pero está comentada por si se quiere usar este archivo de forma independiente -->
+
+{% block title %}Contacto{% endblock %} 
+<!-- Título de la página que se muestra en la pestaña del navegador -->
+
+{% block content %}
+<!-- Enlaces a hojas de estilo específicas para los formularios y la sección de contacto -->
+<link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/contacto.css') }}" rel="stylesheet" />
+
+<!-- Aquí se muestra un mensaje si hay alguno (puede ser de éxito o error tras enviar el formulario) -->
+{% if mensaje %}
+  <div>
+    {{ mensaje }}
+  </div>
+{% endif %}
+
+<!-- Sección principal de contacto con dos bloques: uno para particulares y otro para empresas -->
+<section id="seccion-contacto" role="region">
+
+  <!-- Bloque para particulares (personas individuales) -->
+  <div id="contacto-particulares" role="region" aria-labelledby="contacto-particulares-titulo">
+    <div>
+      <!-- Icono representando a un usuario -->
+      <i class="fas fa-user" aria-hidden="true"></i>
+    </div>
+
+    <!-- Título del bloque -->
+    <h2 id="contacto-particulares-titulo">Particulares</h2>
+
+    <!-- Texto explicativo para orientar al usuario sobre los temas que puede consultar -->
+    <p>¿Tienes dudas sobre pedidos, venta online, tiendas o nuestro programa de fidelización?</p>
+
+    <!-- Botón que abre el formulario modal para particulares -->
+    <button popovertarget="modal-particulares">Contacto</button>
+
+    <!-- Línea divisoria con texto intermedio -->
+    <div>
+      <hr>
+      <p>O si lo prefieres</p>
+      <hr>
+    </div>
+
+    <!-- Información de contacto telefónico -->
+    <b>Llámanos</b>
+    <p>Lunes a Viernes 8:00 am - 4:30 pm</p>
+    <b>844 674 2174</b>
+  </div>
+
+  <!-- Bloque para profesionales y empresas -->
+  <div id="contacto-profesionales" role="region" aria-labelledby="contacto-profesionales-titulo">
+    <div>
+      <!-- Icono representando un maletín, relacionado con el mundo profesional -->
+      <i class="fas fa-briefcase" aria-hidden="true"></i>
+    </div>
+
+    <!-- Título del bloque -->
+    <h2 id="contacto-profesionales-titulo">Profesionales y empresas</h2>
+
+    <!-- Descripción para empresas interesadas en colaborar -->
+    <p>¿Eres un profesional o empresa y quieres vender Mayoral o colaborar con nosotros?</p>
+
+    <!-- Botón que abre el formulario modal para empresas -->
+    <button popovertarget="modal-empresas">Contacto</button>
+
+    <!-- División visual igual que en el bloque anterior -->
+    <div>
+      <hr>
+      <p>O si lo prefieres</p>
+      <hr>
+    </div>
+
+    <!-- Información de contacto telefónico exclusiva para empresas -->
+    <b>Llámanos</b>
+    <p>Lunes a Viernes 8:00 am - 4:30 pm</p>
+    <b>1 305 779 4305</b>
+  </div>
+</section>
+
+<!-- Inclusión de los formularios modales desde archivos externos -->
+{% include "contacto/modal-particulares.html" %}
+{% include "contacto/modal-empresas.html" %}
+
+{% endblock %}

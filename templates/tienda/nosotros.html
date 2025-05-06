@@ -1,0 +1,21 @@
+{# {% extends "user/base.html" %} #}
+
+{% block head_extra %}
+  <link href="{{ url_for('static', filename='css/user/nosotros.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{# {% block title %}Alquimia{% endblock %} #}
+
+{% block content %}
+
+<div>
+    <img src="{{ url_for('static', filename='img/nosotros.jpg') }}" alt="Nosotros">
+    <p>
+        En Alquimia, creemos que la elegancia y la calidad van de la mano. Nuestra selección de moda, accesorios y artículos exclusivos está diseñada para quienes buscan distinción y estilo. 
+    </p>
+    <p>
+        Estamos comenzando esta nueva aventura, pero nuestro compromiso es claro: ofrecerte piezas únicas, atención personalizada y una experiencia de compra excepcional.
+    </p>
+</div>
+
+{% endblock %}

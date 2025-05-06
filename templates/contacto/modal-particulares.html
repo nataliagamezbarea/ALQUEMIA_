@@ -1,0 +1,46 @@
+<dialog id="modal-particulares" popover>
+  <!-- Este es el formulario modal para personas particulares que tengan dudas o consultas -->
+
+  <!-- Título del formulario -->
+  <h2>Particulares</h2>
+  <!-- Breve texto para orientar al usuario sobre los temas disponibles -->
+  <p>¿Tienes dudas sobre pedidos, venta online, tiendas o nuestro programa de fidelización?</p>
+
+  <!-- Inicio del formulario, que se enviará por método POST a la ruta definida -->
+  <form method="POST" action="{{ url_for('contactanos_particular') }}">
+
+    <!-- Menú para que el usuario seleccione el motivo de su consulta -->
+    <select name="opcion" required>
+      <option value="" disabled selected>Selecciona una opción</option>
+      <option value="pedidos">Pedidos</option>
+      <option value="venta_online">Venta online</option>
+      <option value="tiendas">Tiendas</option>
+      <option value="fidelizacion">Programa de fidelización</option>
+    </select>
+
+    <!-- Campos para datos personales obligatorios -->
+    <input type="text" name="nombre" placeholder="Nombre *" required>
+    <input type="text" name="apellido1" placeholder="Apellido 1 *" required>
+    <input type="text" name="apellido2" placeholder="Apellido 2 *" required>
+
+    <!-- Datos de contacto: no todos son obligatorios, pero ayudan mucho para responder mejor -->
+    <input type="email" name="email" placeholder="Email">
+    <input type="tel" name="telefono" placeholder="Teléfono">
+    <input type="tel" name="tiquet" placeholder="Nº tiquet/Pedido">
+
+    <!-- Espacio para que la persona deje un mensaje más detallado -->
+    <textarea name="comentario" placeholder="Comentario"></textarea>
+
+    <!-- Casilla para aceptar la política de privacidad (esto es súper importante para cumplir con la ley) -->
+    <label>
+      <input type="checkbox" required>
+      He leído y aceptado las <a href="#" target="_blank">Política Privacidad</a>
+    </label>
+
+    <!-- Botón para enviar el formulario -->
+    <button type="submit">Enviar</button>
+  </form>
+
+  <!-- Botón para cerrar el formulario modal -->
+  <button popovertarget="modal-particulares" popovertargetaction="hide">X</button>
+</dialog>

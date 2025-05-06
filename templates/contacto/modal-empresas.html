@@ -1,0 +1,45 @@
+<!-- Diálogo modal para contacto de empresas -->
+<dialog id="modal-empresas" popover>
+  <!-- Título del modal -->
+  <h2>Empresas</h2>
+  <!-- Descripción breve para orientar al usuario sobre el contenido del formulario -->
+  <p>¿Tienes dudas sobre pedidos, venta online, tiendas o nuestro programa de fidelización?</p>
+
+  <!-- Formulario de contacto para empresas -->
+  <form method="POST" action="{{ url_for('contactanos_empresa') }}">
+    <!-- Menú desplegable para seleccionar el tipo de consulta -->
+    <select name="opcion" required>
+      <option value="" disabled selected>Selecciona una opción</option>
+      <option value="pedidos">Pedidos</option>
+      <option value="venta_online">Venta online</option>
+      <option value="tiendas">Tiendas</option>
+      <option value="fidelizacion">Programa de fidelización</option>
+    </select>
+
+    <!-- Campos de entrada para el nombre y los apellidos -->
+    <input type="text" name="nombre" placeholder="Nombre *" required>
+    <input type="text" name="apellido1" placeholder="Apellido 1 *" required>
+    <input type="text" name="apellido2" placeholder="Apellido 2 *" required>
+
+    <!-- Campos para datos de contacto: email y teléfono -->
+    <input type="email" name="email" placeholder="Email">
+    <input type="tel" name="telefono" placeholder="Teléfono">
+    <!-- Campo opcional para el número de tiquet o pedido -->
+    <input type="tel" name="tiquet" placeholder="Nº tiquet/Pedido">
+
+    <!-- Área de texto para que el usuario pueda dejar un comentario adicional -->
+    <textarea name="comentario" placeholder="Comentario"></textarea>
+
+    <!-- Checkbox para aceptar la política de privacidad -->
+    <label>
+      <input type="checkbox" required>
+      He leído y aceptado las <a href="#" target="_blank">Política Privacidad</a>
+    </label>
+
+    <!-- Botón para enviar el formulario -->
+    <button type="submit">Enviar</button>
+  </form>
+
+  <!-- Botón para cerrar el modal -->
+  <button popovertarget="modal-empresas" popovertargetaction="hide">X</button>
+</dialog>
