@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Catálogo de Productos{% endblock %}
+
+{% block content %}
+<link href="{{ url_for('static', filename='css/user/catalogo.css') }}" rel="stylesheet" />
+
+{% if productos %}
+{% include "tienda/productos.html" %}
+
+
+<!-- Paginación -->
+<div class="paginacion">
+  {% if pagina_actual > 1 %}
+    <a href="{{ url_for('catalogo', pagina=pagina_actual-1, seccion=nombre_seccion, categoria=nombre_categoria) }}" class="paginacion-btn">Anterior</a>
+  {% endif %}
+  <span>Página {{ pagina_actual }} de {{ total_paginas }}</span>
+  {% if pagina_actual < total_paginas %}
+    <a href="{{ url_for('catalogo', pagina=pagina_actual+1, seccion=nombre_seccion, categoria=nombre_categoria) }}" class="paginacion-btn">Siguiente</a>
+  {% endif %}
+</div>
+
+{% else %}
+  <div class="mensaje-vacio">
+    No hay productos disponibles en el catálogo en este momento. 😞
+  </div>
+{% endif %}
+
+<!-- Sugerencias por género -->
+<section class="categorias">
+  <div id="sugerencias_genero" class="flex justify-between">
+    <h1>Sugerencias para ti</h1>
+    <div>
+      <a href="{{ url_for('catalogo', seccion='mujer') }}">
+        <button class="{% if nombre_seccion == 'mujer' %}active{% endif %}">MUJER</button>
+      </a>
+      <a href="{{ url_for('catalogo', seccion='hombre') }}">
+        <button class="{% if nombre_seccion == 'hombre' %}active{% endif %}">HOMBRE</button>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

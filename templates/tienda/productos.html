@@ -1,0 +1,71 @@
+{% if request.path == '/catalogo' %}
+    <section class="catalogo">
+      <div class="productos-lista">
+        {% for producto in productos %}
+          {% set producto_index = loop.index %}
+          {% set variantes = producto.variantes %}
+          {% set imagenes = producto.imagenes %}
+
+          <a href="{{ url_for('producto_detalle', id_producto=producto.id_producto) }}" class="product-link">
+            <div class="product">
+
+              {% if imagenes %}
+                <div class="product-image-container" id="producto-{{ producto_index }}">
+                  {% for imagen in imagenes %}
+                    <img src="{{ imagen.imagen_url }}" alt="Imagen producto" class="imagen-producto" />
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <div class="product-details">
+                <p class="product-name"><strong>{{ producto.nombre }}</strong></p>
+                <p class="product-price"><strong>Precio:</strong> {{ producto.precio }} €</p>
+
+                {% if variantes %}
+                  <div class="color-options">
+                    {% set colores_vistos = [] %}
+                    {% for variante in variantes %}
+                      {% if variante.color.id_color not in colores_vistos %}
+                        <span class="color"
+                              data-img="{{ imagenes[loop.index0].imagen_url if imagenes and loop.index0 < imagenes|length else imagenes[0].imagen_url }}"
+                              data-target="producto-{{ producto_index }}"
+                              style="background-image: url('{{ variante.color.img_color }}'); background-size: cover;"
+                              title="Color"></span>
+                        {% set _ = colores_vistos.append(variante.color.id_color) %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+{% else %}
+    <!-- Productos recomendados -->
+    <div class="productos-recomendados">
+      <h2>Productos recomendados</h2>
+      <div class="productos-lista">
+          {% for producto_recomendado in productos_recomendados %}
+              {% set imagenes_producto = imagenes_recomendadas[producto_recomendado.id_producto] %}
+              <div class="producto">
+                  <a href="{{ url_for('producto_detalle', id_producto=producto_recomendado.id_producto) }}">
+                      <div class="producto-imagen">
+                          {% if imagenes_producto[0] %}
+                              <img src="{{ imagenes_producto[0] }}" alt="Imagen de producto recomendado">
+                          {% else %}
+                              <p>No disponible</p>
+                          {% endif %}
+                      </div>
+                      <div class="producto-info">
+                          <p>{{ producto_recomendado.nombre }}</p>
+                          <p><strong>{{ producto_recomendado.precio }} €</strong></p>
+                      </div>
+                  </a>
+              </div>
+          {% endfor %}
+      </div>
+    </div>
+{% endif %}

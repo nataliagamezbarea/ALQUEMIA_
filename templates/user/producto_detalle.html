@@ -1,0 +1,33 @@
+<!-- Mostrar imágenes por color -->
+<div id="imagenes">
+    {% for color, imagenes in imagenes_por_color.items() %}
+        <h3>Color: {{ color }}</h3>
+        <div>
+            {% for imagen in imagenes %}
+                <img src="{{ imagen }}" alt="Imagen del producto {{ color }}">
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Selección de color y talla -->
+<form method="POST" action="{{ url_for('producto_detalle', id_producto=producto.id_producto) }}">
+    <label for="color">Selecciona color:</label>
+    <select name="id_color" id="color">
+        {% for color, imagenes in imagenes_por_color.items() %}
+            <option value="{{ color }}">{{ color }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="talla">Selecciona talla:</label>
+    <select name="id_talla" id="talla">
+        {% for talla in tallas %}
+            <option value="{{ talla.id_talla }}">{{ talla.talla }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Seleccionar Variante</button>
+</form>
+
+<!-- Incluir la plantilla de productos -->
+{% include "tienda/productos.html" %}
