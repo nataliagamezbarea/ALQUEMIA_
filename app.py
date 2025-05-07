@@ -1,7 +1,10 @@
 import os
 from flask import Flask
 from routes import *
+from routes import *
 from backend.base_de_datos import db, init_models
+
+from routes.cesta import actualizar_cantidad_producto, añadir_producto_cesta, eliminar_producto_cesta
 
 # Importamos las funciones para las vistas
 from routes import home, obtener_cesta , contacto , contacto_empresa , contacto_particular , admin_home , user_home , encuentranos , nosotros , obtener_menu
@@ -69,6 +72,18 @@ app.add_url_rule('/compras', 'compras', compras, methods=["GET", "POST"])
 app.add_url_rule('/informacion_personal', 'informacion_personal', informacion_personal)
 app.add_url_rule('/update_usuario', 'update_usuario', update_usuario, methods=['POST']) 
 app.add_url_rule('/cambiar_contraseña', 'cambiar_contraseña', update_contraseña, methods=["GET", "POST"])
+
+# Catalogo
+app.add_url_rule('/catalogo', 'catalogo', catalogo, methods=["GET"])
+app.add_url_rule('/producto/<int:id_producto>', 'producto_detalle', producto_detalle, methods=["GET"])
+
+# Cesta
+
+
+
+app.add_url_rule('/cesta/añadir', 'añadir_producto_cesta', añadir_producto_cesta, methods=["POST"])
+app.add_url_rule('/cesta/actualizar/<int:id_variantes>', 'actualizar_cantidad_producto', actualizar_cantidad_producto, methods=["POST"])
+app.add_url_rule('/cesta/eliminar/<int:id_variantes>', 'eliminar_producto_cesta', eliminar_producto_cesta, methods=["POST"])
 
 
 

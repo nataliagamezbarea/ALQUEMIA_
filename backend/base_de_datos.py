@@ -17,6 +17,8 @@ def init_models(app):
         
         # Aquí reflejamos la tabla específica 'productos_categorias', que es una tabla intermedia
         # Esta tabla conecta productos con categorías, y la necesitamos para las relaciones
+        Producto = Table('productos', metadata, autoload_with=db.engine)
+        Categoria = Table('categorias', metadata, autoload_with=db.engine)
         productos_categorias = Table('productos_categorias', metadata, autoload_with=db.engine)
         
         # Preparamos las clases reflejadas, no necesitamos autoload después

@@ -32,3 +32,11 @@ from .authentication.cerrar_sesion import cerrar_sesion
 # Busqueda
 
 from .busqueda import busqueda
+
+
+# Catalogo
+
+from .tienda.catalogo import catalogo
+
+# Producto detalle 
+from .tienda.producto_detalle import producto_detalle
